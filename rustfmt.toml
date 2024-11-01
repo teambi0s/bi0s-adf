@@ -1,0 +1,5 @@
+max_width = 80
+enum_discrim_align_threshold = 20
+struct_field_align_threshold = 20
+imports_granularity = "Crate"
+use_field_init_shorthand = true

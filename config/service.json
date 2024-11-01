@@ -1,0 +1,10 @@
+[
+    {
+        "name": "message_box",
+        "port": 1337,
+        "no_flag_slot": 1,
+	"checker_host": "127.0.0.1",
+	"checker_port": 50051
+    }
+]
+

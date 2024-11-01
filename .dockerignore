@@ -1,0 +1,8 @@
+.git
+.github
+.docker
+target
+!target/release/public 
+!target/release/gamebot
+!target/release/init
+services/weaponshop/.docker

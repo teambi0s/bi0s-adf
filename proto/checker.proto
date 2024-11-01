@@ -1,0 +1,48 @@
+syntax = "proto3";
+package checker;
+
+service Checker {
+  rpc PlantFlag(PlantFlagRequest) returns (PlantFlagResponse);
+  rpc CheckFlag(CheckFlagRequest) returns (ServiceStatus);
+  rpc CheckService(CheckServiceRequest) returns (ServiceStatus);
+}
+
+message PlantFlagRequest {
+  string ip = 1; // Provide the team's IP address
+  uint32 port = 2; // Specify the port where the challenge is accessible
+  string flag = 3; // Set the flag value to plant in the service
+  uint32 slot = 4; // If the service supports multiple flags, use this to specify the slot
+}
+
+message PlantFlagResponse {
+  ServiceStatus status = 1; // Indicate the status of the flag planting operation
+  string token = 2; // Retrieve the token used to access the planted flag
+  string identifier = 3; // Get the public identifier for the planted flag
+}
+
+enum ServiceState {
+  UNKNOWN = 0;
+  UP = 1; // The service is functioning correctly, and flags can be retrieved
+  DOWN = 2; // The service is offline
+  MUMBLE = 3; // The service is partially functional
+  CORRUPT = 4; // The service is online, but flags cannot be retrieved
+}
+
+message ServiceStatus {
+  ServiceState state = 1; // Indicate the current state of the service
+  string reason = 2; // Provide a reason for the MUMBLE or CORRUPT state (without leaking internal information)
+}
+
+message CheckFlagRequest {
+  string ip = 1; // Provide the IP address to check the flag
+  uint32 port = 2; // Specify the port where the challenge is accessible
+  string flag = 3; // Set the flag value to check
+  string token = 4; // Use the token to access the flag
+  string identifier = 5; // Provide the public identifier for the flag
+  uint32 slot = 6; // If the service supports multiple flags, use this to specify the slot
+}
+
+message CheckServiceRequest {
+  string ip = 1; // Provide the IP address to check the service
+  uint32 port = 2; // Specify the port where the service is accessible
+}
